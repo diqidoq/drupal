@@ -34,12 +34,21 @@ class AdminRouteSubscriberTest extends UnitTestCase {
       new Route('/foo'),
       NULL,
     ];
+    $data['non-admin'] = [
+      new Route('/administrator'),
+      NULL,
+    ];
     $data['admin prefix'] = [
       new Route('/admin/foo'),
       TRUE,
     ];
     $data['admin option'] = [
       (new Route('/foo'))
+        ->setOption('_admin_route', TRUE),
+      TRUE,
+    ];
+    $data['admin option'] = [
+      (new Route('/administrator'))
         ->setOption('_admin_route', TRUE),
       TRUE,
     ];
@@ -50,6 +59,12 @@ class AdminRouteSubscriberTest extends UnitTestCase {
     ];
     $data['admin option, non-HTML format'] = [
       (new Route('/foo'))
+        ->setRequirement('_format', 'json')
+        ->setOption('_admin_route', TRUE),
+      TRUE,
+    ];
+    $data['admin option, non-HTML format'] = [
+      (new Route('/administrator'))
         ->setRequirement('_format', 'json')
         ->setOption('_admin_route', TRUE),
       TRUE,
